@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <a href={% url "inicio" %}>Inicio</a>
+    </nav>
+    <h1>Formulario de ingreso</h1>
+    <form action={% url "ingresar" %} method='POST'>
+
+        {% csrf_token %}
+        {{formulario}}
+        <input type="submit" value="Ingresar">
+
+    </form>
+</body>
+</html>
