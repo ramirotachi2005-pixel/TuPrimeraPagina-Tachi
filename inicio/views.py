@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from inicio.forms import formulario_ingreso
+from inicio.forms import formulario_ingreso,formulario_adopcion
 
 
 def inicio(request):
@@ -13,6 +13,7 @@ def ingresar(request):
     return render(request, 'inicio/ingresar.html',{'formulario':formulario})
 
 def adoptar(request):
-    return render(request, 'inicio/adoptar.html')
+    formulario = formulario_adopcion()
+    return render(request, 'inicio/adoptar.html',{'formulario':formulario})
 
 # Create your views here.
