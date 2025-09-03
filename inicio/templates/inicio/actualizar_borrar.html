@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Lista Animales</title>
+{% endblock head %}
+
+{% block style %}
+    .animal-data {
+
+        font-size: 1.2rem;
+        line-height: 2.2rem; /* Espacio entre renglones */
+    }
+    .btn-custom {
+        
+        font-size: 1rem;
+        padding: 0.25rem 0.25rem;
+        border-radius: 6px;
+        background-color: #04014dff;
+        color: white;
+        border: none;
+        text-decoration: none;
+    }
+{% endblock style %}
+
+{% block body %}
+    <h1>Listado de Animales</h1>
+    <ul>
+        {% for animal in animales %}
+            <li class="animal-data">
+                {{animal}}
+                    <a href={% url "detalle" animal.id %} class="btn-custom" >Detalle</a>
+                    <a href={% url "actualizar" animal.id %} class="btn-custom" >Actualizar</a>
+                    <a href={% url "borrar" animal.id %} class="btn-custom" >Borrar</a> 
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock body %}

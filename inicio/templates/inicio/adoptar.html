@@ -1,27 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Formulario de adopción</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+{% extends "base.html" %}
 
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-        }
+{% block head %}
+        <title>Formulario de adopción</title>
+{% endblock head %}
 
-
+        
+{% block style %}
         .page-title {
             position: absolute;
             top: 5rem;       /* 5 rem desde arriba */
@@ -30,8 +14,6 @@
             font-weight: bold;
             color: #04014dff;
         }
-
-
         form {
             position: absolute;
             top: 12rem; /* Ajusta la distancia entre título y formulario */
@@ -88,31 +70,18 @@
 
         .table tbody tr:hover {
             background-color: #d1e7dd;
-        }
+        }  
+{% endblock style %}        
+
+
+{% block body %}
         
-
-
-    </style>
-<head>
-<body>
-
-            <!-- Titulo de pagina -->
+    
+     <!-- Titulo de pagina -->
     <div class="main-content">
             <h1 class="page-title">Formulario de adopcion</h1>
     </div>
-
         <!-- Barra con el botón Inicio -->
-    <nav class="navbar fixed-top" style="background-color: #04014dff;">
-        <div class="container-fluid">
-            <a class="btn" href="{% url 'inicio' %}" 
-            style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px;">
-                Inicio
-            </a>
-        </div>
-    </nav>
-
-    
-
     <form action={% url "adoptar" %} method='POST'>
 
         {% csrf_token %}
@@ -133,6 +102,7 @@
                     <th>Raza</th>
                     <th>Color</th>
                     <th>Peso</th>
+                    <th>Edad</th>
                 </tr>
             </thead>
             <tbody>
@@ -143,6 +113,7 @@
                         <td>{{ animal.Raza }}</td>
                         <td>{{ animal.Color }}</td>
                         <td>{{ animal.Peso }}</td>
+                        <td>{{ animal.Edad }}</td>
                     </tr>
                 {% empty %}
                     <tr>
@@ -156,5 +127,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock body %}
+
+    

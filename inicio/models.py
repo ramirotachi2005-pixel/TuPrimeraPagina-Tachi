@@ -5,10 +5,13 @@ class Animal(models.Model):
     Sexo = models.CharField(max_length=10)
     Raza = models.CharField(max_length=25)
     Color = models.CharField(max_length=25)
-    Peso = models.CharField(max_length=6)
+    Peso = models.CharField(max_length=10)
+    Edad = models.CharField(max_length=20)
+    Info = models.CharField(max_length=300)
+
     
-    #def __str__(self):
-    #    return 
+    def __str__(self):
+        return f"{self.Especie} - {self.Raza} - {self.Edad}"
     
-    def __repr__(self):
-        return f"Marca: {self.Especie} {self.Sexo} {self.Raza} {self.Color} {self.Peso}"
+    # def __repr__(self):
+        # return f"Marca: {self.Especie} {self.Sexo} {self.Raza} {self.Color} {self.Peso}"

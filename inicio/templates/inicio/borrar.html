@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Borrar</title>
+{% endblock head %}
+
+{% block style %}
+    .page-title {
+        position: absolute;
+        top: 5rem;       /* Título arriba */
+        left: 2rem;
+        font-size: 2.8rem;
+        font-weight: bold;
+        color: #04014dff;
+    }
+    .animal-data {
+        position: absolute;
+        top: 10rem;      /* Un poco más abajo del título */
+        left: 4rem;      /* Separado del borde izquierdo */
+        font-size: 1.2rem;
+        line-height: 2rem; /* Espacio entre renglones */
+    }
+    .btn-custom {
+        position: absolute;
+        top: 35rem;      /* Más abajo de los datos */
+        left: 22rem;      /* Alineado con los datos */
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        background-color: #04014dff;
+        color: white;
+        border: none;
+    }
+    .btn-custom2 {
+            position: absolute;
+            top: 35rem;
+            left: 2.5rem;
+            font-size: 1.5rem;
+            padding: 1rem 1rem;
+            border-radius: 10px;
+            background-color: #04014dff;
+            color: white;
+            border: none;
+            text-decoration: none;
+            /* separación ya controlada con gap del formulario */
+        }
+{% endblock style %}
+    
+{% block body %}
+    <form action={% url "borrar" animal.id %} method='POST'>
+        {% csrf_token %}
+        
+        <h1 class="page-title">Confirmar el borrado del animal N°{{animal.id}}</h1>
+
+        <div class="animal-data">
+            <p><strong>Especie:</strong> {{animal.Especie}}</p>
+            <p><strong>Raza:</strong> {{animal.Raza}}</p>
+            <p><strong>Color:</strong> {{animal.Color}}</p>
+            <p><strong>Sexo:</strong> {{animal.Sexo}}</p>
+            <p><strong>Peso:</strong> {{animal.Peso}}</p>
+            <p><strong>Edad:</strong> {{animal.Edad}}</p>
+        </div>
+
+        <input type="submit" value="Borrar" class="btn-custom">
+    </form>
+    <a href="{% url 'actualizar_borrar' %}" class="btn-custom2">Volver</a>
+{% endblock body %}
