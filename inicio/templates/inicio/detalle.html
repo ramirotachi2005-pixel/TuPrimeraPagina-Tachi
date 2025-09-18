@@ -23,7 +23,7 @@
     .btn-custom {
             position: absolute;
             top: 35rem;
-            left: 22rem;
+            left: 12.5rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
@@ -46,6 +46,17 @@
             text-decoration: none;
             /* separación ya controlada con gap del formulario */
         }
+    .imagen {
+            position: absolute;
+            top: 0rem;
+            left: 25rem;
+            max-width: 250%;  /* Nunca se sale del contenedor */
+            max-height: 150%;     /* Mantiene proporciones */
+            display: block;   /* Evita espacios raros debajo de la imagen */
+            object-fit: contain; /* La ajusta sin recortarla */
+            border-radius: 12px; /* Opcional, esquinas redondeadas */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Opcional, sombra suave */
+    }
 {% endblock style %}
 
 {% block body %}
@@ -59,6 +70,11 @@
             <p><strong>Peso:</strong> {{animal.Peso}}</p>
             <p><strong>Edad aproximada:</strong> {{animal.Edad}}</p>
             <p><strong>Información adicional:</strong> {{animal.Info}}</p>
+            {% if animal.imagen %}
+            <img src={{animal.imagen.url}} alt="Imagen del animal" class='imagen'>
+            {% else %}
+            <h2>No hay imagen sobre este animal.</h2>
+            {% endif %}
         </div>
     
         

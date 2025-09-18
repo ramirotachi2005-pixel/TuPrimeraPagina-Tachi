@@ -32,6 +32,10 @@
                     <a href={% url "actualizar" animal.id %} class="btn-custom" >Actualizar</a>
                     <a href={% url "borrar" animal.id %} class="btn-custom" >Borrar</a> 
             </li>
+        {% empty %}
+                <li>
+                    <td colspan="5">No hay animales disponibles para adopción.</td>
+                </li>    
         {% endfor %}
     </ul>
 

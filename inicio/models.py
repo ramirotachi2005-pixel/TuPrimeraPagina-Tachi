@@ -7,7 +7,8 @@ class Animal(models.Model):
     Color = models.CharField(max_length=25)
     Peso = models.CharField(max_length=10)
     Edad = models.CharField(max_length=20)
-    Info = models.CharField(max_length=300)
+    Info = models.CharField(max_length=300, blank=True)
+    imagen = models.ImageField(upload_to='animales', blank=True, null=True)
 
     
     def __str__(self):

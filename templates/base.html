@@ -18,7 +18,10 @@
             align-items: center;
             text-align: center;
         }
-        
+
+        .form-cerrarsesion{
+
+        }
 
         {% block style %}
 
@@ -31,15 +34,42 @@
 </head>
 
 <body>
-<!-- Barra con el botón Inicio -->
-    <nav class="navbar fixed-top" style="background-color: #04014dff;">
-        <div class="container-fluid">
-            <a class="btn" href="{% url 'inicio' %}" 
-                style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px;">
-                 Inicio
-             </a>
+<nav class="navbar fixed-top" style="background-color: #04014dff;">
+    <div class="container-fluid d-flex justify-content-between">
+        
+        <!-- Botón Inicio alineado a la izquierda -->
+        <a class="btn" href="{% url 'inicio' %}" 
+            style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px;">
+             Inicio
+         </a>
+
+        <!-- Botones alineados a la derecha -->
+        <div class="d-flex">
+            {% if request.user.is_authenticated %}
+                <a href={% url 'perfil' %} class="btn" style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px; margin-right: 10px;">
+                    {{ request.user.username }}
+                </a>
+
+                <!-- Botón de cerrar sesión -->
+                <form action={% url "cerrar_sesion" %} method='POST' class="form-cerrarsesion">
+                    {% csrf_token %}
+                    <input type="submit" value="Cerrar sesion" class="btn" 
+                        style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px;">
+                </form>
+            {% else %}
+                <a class="btn" href="{% url 'iniciar_sesion' %}" 
+                    style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px; margin-right: 10px;">
+                     Iniciar sesion
+                </a>
+                <a class="btn" href="{% url 'registro' %}" 
+                    style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px;">
+                     Registrarse
+                </a>                  
+            {% endif %} 
         </div>
-    </nav>
+    </div>
+</nav>
+
     {% block body %}
         
     {% endblock body %}

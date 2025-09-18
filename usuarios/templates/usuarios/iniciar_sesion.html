@@ -1,22 +1,18 @@
-
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block head %}
-        <title>Formulario de ingreso</title>
+    <title>Inicio de Sesion</title>
 {% endblock head %}
 
-        
 {% block style %}
         .page-title {
             position: absolute;
-            top: 7rem;       /* 5 rem desde arriba */
+            top: 5rem;       /* 5 rem desde arriba */
             left: 2rem;      /* 2 rem desde la izquierda */
             font-size: 2.8rem;
             font-weight: bold;
             color: #04014dff;
         }
-
-
         .form {
             position: absolute;
             top: 12rem; /* Ajusta la distancia entre título y formulario */
@@ -24,14 +20,12 @@
             display: flex;
             flex-direction: column; /* Para que los inputs se apilen verticalmente */
             gap: 1rem; /* Espacio entre cada input dentro del formulario */
-            width: 300px; /* Ancho opcional del formulario */
+            width: 500px; /* Ancho opcional del formulario */
         }
-
-
         .btn-custom {
             position: absolute;
-            top: 22rem;
-            left: 27.5rem;
+            top: 15rem;
+            left: 20rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
@@ -40,24 +34,13 @@
             border: none;
             /* separación ya controlada con gap del formulario */
         }
-{% endblock style %}        
-
+{% endblock style %}
 
 {% block body %}
-     
-    <!-- Titulo de pagina -->
-<div class="main-content">
-        <h1 class="page-title">Formulario de ingreso</h1>
-</div>
-
-    <form action={% url "ingresar" %} method='POST' enctype='multipart/form-data' class='form'>
-
+    <h1 class="page-title">Iniciar Sesion</h1>
+    <form action={% url "iniciar_sesion" %} method='POST' class="form">
         {% csrf_token %}
         {{formulario}}
-        <input type="submit" value="Ingresar" class="btn-custom">
-
+        <input type="submit" value="Iniciar sesion" class="btn-custom">
     </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock body %}
-

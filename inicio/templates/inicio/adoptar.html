@@ -14,7 +14,7 @@
             font-weight: bold;
             color: #04014dff;
         }
-        form {
+        .form {
             position: absolute;
             top: 12rem; /* Ajusta la distancia entre título y formulario */
             left: 6rem;
@@ -82,7 +82,7 @@
             <h1 class="page-title">Formulario de adopcion</h1>
     </div>
         <!-- Barra con el botón Inicio -->
-    <form action={% url "adoptar" %} method='POST'>
+    <form action={% url "adoptar" %} method='POST' enctype='multipart/form-data' class="form">
 
         {% csrf_token %}
         {{formulario}}

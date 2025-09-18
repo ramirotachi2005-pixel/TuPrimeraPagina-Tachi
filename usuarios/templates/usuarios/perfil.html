@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>Actualizar</title>
+    <title>Perfil</title>
 {% endblock head %}
 
 {% block style %}
@@ -13,18 +13,16 @@
             font-weight: bold;
             color: #04014dff;
         }
-        .form {
-            position: absolute;
-            top: 12rem; /* Ajusta la distancia entre título y formulario */
-            left: 6rem;
-            display: flex;
-            flex-direction: column; /* Para que los inputs se apilen verticalmente */
-            gap: 1rem; /* Espacio entre cada input dentro del formulario */
-            width: 300px; /* Ancho opcional del formulario */
-        }
+    .user-data {
+        position: absolute;
+        top: 12rem;      /* Un poco más abajo del título */
+        left: 5rem;      /* Separado del borde izquierdo */
+        font-size: 1.2rem;
+        line-height: 2rem; /* Espacio entre renglones */
+    }
         .btn-custom {
             position: absolute;
-            top: 23rem;
+            top: 30rem;
             left: 20rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
@@ -36,28 +34,28 @@
         }
         .btn-custom2 {
             position: absolute;
-            top: 35rem;
-            left: 2.5rem;
+            top: 30rem;
+            left: 40rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
             background-color: #04014dff;
             color: white;
             border: none;
-            text-decoration: none;
             /* separación ya controlada con gap del formulario */
-        }
+        }               
 {% endblock style %}
 
 {% block body %}
-    <h1 class="page-title">Actualizacion del animal N°{{animal.id}}</h1>
-    <form action={% url "actualizar" animal.id %} method='POST' enctype='multipart/form-data' class="form">
 
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="Actualizar" class="btn-custom">
-        
+<h1 class="page-title">Perfil</h1>
+<div class="user-data">
+            <p><strong>Nombre de usuario:</strong> {{user.username}}</p>
+            <p><strong>Nombre:</strong> {{user.first_name}}</p>
+            <p><strong>Apellido:</strong> {{user.last_name}}</p>
+            <p><strong>Email:</strong> {{user.email}}</p>
+        </div>
+<a href = {% url "editar_perfil" %} class="btn btn-dark btn-custom"> Editar </a>
+<a href = {% url "editar_contrasenia" %} class="btn btn-dark btn-custom2"> Editar contraseña </a>
 
-    </form>
-    <a href="{% url 'actualizar_borrar' %}" class="btn-custom2">Volver</a>
 {% endblock body %}

@@ -4,14 +4,17 @@ from inicio.forms import formulario_ingreso,formulario_adopcion
 from inicio.models import Animal
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def inicio(request):
     return render(request,'inicio/inicio.html')
 
+@login_required
 def ingresar(request):
     
     if request.method == "POST":
-        formulario = formulario_ingreso(request.POST)
+        formulario = formulario_ingreso(request.POST, request.FILES)
         if formulario.is_valid():
             especie_nueva = formulario.cleaned_data.get('Especie')
             sexo_nueva = formulario.cleaned_data.get('Sexo')
@@ -20,9 +23,10 @@ def ingresar(request):
             peso_nueva = formulario.cleaned_data.get('Peso')
             edad_nueva = formulario.cleaned_data.get('Edad')
             info_nueva = formulario.cleaned_data.get('Info')
+            imagen_nueva = formulario.cleaned_data.get('imagen')
             
     
-            animal = Animal(Especie=especie_nueva,Sexo=sexo_nueva,Raza=raza_nueva,Color=color_nueva,Peso=peso_nueva,Edad=edad_nueva,Info=info_nueva)
+            animal = Animal(Especie=especie_nueva,Sexo=sexo_nueva,Raza=raza_nueva,Color=color_nueva,Peso=peso_nueva,Edad=edad_nueva,Info=info_nueva,imagen=imagen_nueva)
             animal.save()
             return redirect('ingreso_exitoso')
     else:
@@ -30,6 +34,7 @@ def ingresar(request):
     
     return render(request, 'inicio/ingresar.html',{'formulario':formulario})
 
+@login_required
 def ingreso_exitoso(request):
     return render(request,'inicio/ingreso_exitoso.html')
 
@@ -78,11 +83,13 @@ def adopcion_exitosa(request):
 def adopcion_fallida(request):
     return render(request,'inicio/adopcion_fallida.html')
 
+@login_required
 def actualizar_borrar(request):
     animales = Animal.objects.all()
     
     return render(request, 'inicio/actualizar_borrar.html', {'animales': animales})
 
+@login_required
 def detalle(request, animal_id):
     
     animal = Animal.objects.get(id=animal_id)
@@ -90,13 +97,13 @@ def detalle(request, animal_id):
     return render (request, 'inicio/detalle.html', {'animal':animal})
 
 
-class actualizar(UpdateView):
+class actualizar(LoginRequiredMixin,UpdateView):
     model = Animal
     template_name = "inicio/actualizar.html"
     fields = "__all__"
     success_url = reverse_lazy('actualizar_borrar')
     
-class borrar(DeleteView):
+class borrar(LoginRequiredMixin,DeleteView):
     model = Animal
     template_name = "inicio/borrar.html"
     success_url = reverse_lazy('actualizar_borrar')
