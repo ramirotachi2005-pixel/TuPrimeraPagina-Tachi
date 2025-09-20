@@ -5,17 +5,17 @@
 {% endblock head %}
 
 {% block style %}
-        .page-title {
+    .page-title {
             position: absolute;
-            top: 5rem;       /* 5 rem desde arriba */
-            left: 2rem;      /* 2 rem desde la izquierda */
+            top: 7.5rem;       /* 5 rem desde arriba */
+            left: 5rem;      /* 2 rem desde la izquierda */
             font-size: 2.8rem;
             font-weight: bold;
             color: #04014dff;
         }
     .user-data {
         position: absolute;
-        top: 12rem;      /* Un poco más abajo del título */
+        top: 14.5rem;      /* Un poco más abajo del título */
         left: 5rem;      /* Separado del borde izquierdo */
         font-size: 1.2rem;
         line-height: 2rem; /* Espacio entre renglones */
@@ -23,7 +23,7 @@
         .btn-custom {
             position: absolute;
             top: 30rem;
-            left: 20rem;
+            left: 6rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
@@ -35,7 +35,7 @@
         .btn-custom2 {
             position: absolute;
             top: 30rem;
-            left: 40rem;
+            left: 20rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
@@ -43,7 +43,16 @@
             color: white;
             border: none;
             /* separación ya controlada con gap del formulario */
-        }               
+        }
+        .imagen {
+            position: absolute;
+            top: 4.7rem;
+            left: 14rem;
+            display: block;   /* Evita espacios raros debajo de la imagen */
+            object-fit: contain; /* La ajusta sin recortarla */
+            border-radius: 12px; /* Opcional, esquinas redondeadas */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Opcional, sombra suave */
+    }               
 {% endblock style %}
 
 {% block body %}
@@ -55,6 +64,15 @@
             <p><strong>Apellido:</strong> {{user.last_name}}</p>
             <p><strong>Email:</strong> {{user.email}}</p>
         </div>
+
+<div>        
+        {% if request.user.datosextra.avatar %}
+            <img src="{{request.user.datosextra.avatar.url}}" alt="avatar" class="imagen rounded-circle" width='150' height='150'>
+        {% else %}
+            <h2>No hay imagen sobre este animal.</h2>
+        {% endif %}
+        <div>
+
 <a href = {% url "editar_perfil" %} class="btn btn-dark btn-custom"> Editar </a>
 <a href = {% url "editar_contrasenia" %} class="btn btn-dark btn-custom2"> Editar contraseña </a>
 

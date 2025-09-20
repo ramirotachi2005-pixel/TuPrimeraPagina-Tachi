@@ -78,7 +78,11 @@
         </div>
     
         
-    <a href="{% url 'adoptar' %}" class="btn-custom">Adoptar Animal</a>
+    <form method="post" action="{% url 'detalle' animal.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn-custom">Adoptar Animal</button>
+</form>    
+    {% comment %} <a href="{% url 'adoptar' %}" class="btn-custom">Adoptar Animal</a> {% endcomment %}
     <a href="{% url 'actualizar_borrar' %}" class="btn-custom2">Volver</a>
 
 {% endblock body %}

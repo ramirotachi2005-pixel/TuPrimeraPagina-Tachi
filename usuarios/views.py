@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from usuarios.models import DatosExtra
 
 def iniciar_sesion(request):
     
@@ -15,6 +16,8 @@ def iniciar_sesion(request):
              usuario = formulario.get_user()
              
              login(request, usuario)
+             
+             DatosExtra.objects.get_or_create(user=usuario)
              
              return redirect('inicio')
     else:
@@ -42,13 +45,21 @@ def perfil(request):
 @login_required
 def editar_perfil(request):
     
+    datos_extra = request.user.datosextra
+    
     if request.method == "POST":
-        formulario = Editar_perfil(request.POST, instance=request.user)
+        formulario = Editar_perfil(request.POST, request.FILES, instance=request.user)
         if formulario.is_valid():
+            
+            avatar_nuevo = formulario.cleaned_data.get('avatar')
+            
+            if avatar_nuevo:
+                datos_extra.avatar = formulario.cleaned_data.get('avatar')
+            datos_extra.save()
             formulario.save()
             return redirect('perfil')
     else:    
-        formulario = Editar_perfil(instance=request.user)
+        formulario = Editar_perfil(instance=request.user, initial={'avatar': request.user.datosextra.avatar})
     
     return render(request, 'usuarios/editar_perfil.html', {'formulario':formulario})
 

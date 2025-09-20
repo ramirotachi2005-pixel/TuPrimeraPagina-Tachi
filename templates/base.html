@@ -47,6 +47,9 @@
         <div class="d-flex">
             {% if request.user.is_authenticated %}
                 <a href={% url 'perfil' %} class="btn" style="color: white; border: 2px solid white; border-radius: 10px; padding: 8px 16px; margin-right: 10px;">
+                    {% if request.user.datosextra.avatar %}
+                    <img src={{request.user.datosextra.avatar.url}} alt="avatar" class="rounded-circle" width="30px" height='30px'>
+                    {% endif %}
                     {{ request.user.username }}
                 </a>
 

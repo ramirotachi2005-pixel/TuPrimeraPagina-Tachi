@@ -38,7 +38,7 @@
 
 {% block body %}
     <h1 class="page-title">Editar perfil</h1>
-    <form action={% url "editar_perfil" %} method='POST' class="form">
+    <form action={% url "editar_perfil" %} method='POST' class="form" enctype="multipart/form-data">
         {% csrf_token %}
         {{formulario}}
         <input type="submit" value="Actualizar" class="btn-custom">

@@ -1,5 +1,5 @@
 from django.urls import path
-from inicio.views import inicio,ingresar,adoptar,ingreso_exitoso,adopcion_exitosa,adopcion_fallida,actualizar_borrar,detalle,actualizar,borrar
+from inicio.views import inicio,ingresar,adoptar,ingreso_exitoso,adopcion_exitosa,adopcion_fallida,actualizar_borrar,detalle,actualizar,borrar, acceso_denegado
 
 urlpatterns=[
     path('', inicio, name='inicio'),
@@ -11,6 +11,7 @@ urlpatterns=[
     path('actualizar-borrar/', actualizar_borrar, name='actualizar_borrar'),
     path('detalle/<animal_id>/', detalle, name='detalle'),
     path('actualizar/<pk>/', actualizar.as_view(), name='actualizar'),
-    path('borrar/<pk>/', borrar.as_view(), name='borrar')
+    path('borrar/<pk>/', borrar.as_view(), name='borrar'),
+    path('acceso-denegado',acceso_denegado, name="acceso_denegado")
     ]
     

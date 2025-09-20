@@ -6,11 +6,18 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import user_passes_test
+
+def superusuario_required(user):
+    return user.is_superuser
+
+def acceso_denegado(request):
+    return render(request, 'inicio/acceso_denegado.html')
 
 def inicio(request):
     return render(request,'inicio/inicio.html')
 
-@login_required
+@user_passes_test(superusuario_required, login_url='acceso_denegado')
 def ingresar(request):
     
     if request.method == "POST":
@@ -38,6 +45,7 @@ def ingresar(request):
 def ingreso_exitoso(request):
     return render(request,'inicio/ingreso_exitoso.html')
 
+@login_required
 def adoptar(request):
     
     if request.method == "POST":
@@ -65,7 +73,8 @@ def adoptar(request):
                    break
             if encontrado == True :
                 animal.delete()
-                return redirect('adopcion_exitosa')
+                origen = "adoptar"
+                return redirect(f'/adopcion-exitosa/?origen={origen}&animal_id={animal.id}')
                 
             else:
                 return redirect('adopcion_fallida')
@@ -78,7 +87,9 @@ def adoptar(request):
         return render(request, 'inicio/adoptar.html',{'formulario':formulario, 'listado_de_animales': animales})
 
 def adopcion_exitosa(request):
-    return render(request,'inicio/adopcion_exitosa.html')
+    origen = request.GET.get("origen")
+    animal_id = request.GET.get("animal_id")
+    return render(request,'inicio/adopcion_exitosa.html', {"origen": origen, "animal_id": animal_id})
 
 def adopcion_fallida(request):
     return render(request,'inicio/adopcion_fallida.html')
@@ -93,6 +104,11 @@ def actualizar_borrar(request):
 def detalle(request, animal_id):
     
     animal = Animal.objects.get(id=animal_id)
+    
+    if request.method == "POST":  # 👈 SOLO si fue un POST
+        animal.delete()
+        origen = "detalle"
+        return redirect(f'/adopcion-exitosa/?origen={origen}&animal_id={animal_id}')
     
     return render (request, 'inicio/detalle.html', {'animal':animal})
 
@@ -109,4 +125,4 @@ class borrar(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('actualizar_borrar')
 
 
-# Create your views here.
+
