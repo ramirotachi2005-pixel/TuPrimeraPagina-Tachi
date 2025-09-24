@@ -28,8 +28,10 @@
         <div class="main-content">
             <h1 class="page-title">Refugio Animal</h1>
             <div class="d-flex gap-4">
-                 <a href="{% url 'ingresar' %}" class="btn btn-dark btn-custom">Ingresar Animal</a>
                 <a href="{% url 'adoptar' %}" class="btn btn-dark btn-custom">Adoptar Animal</a>
+            {% if request.user.is_superuser %}
+                <a href="{% url 'ingresar' %}" class="btn btn-dark btn-custom">Ingresar Animal</a>
+            {% endif %}
                 <a href="{% url 'actualizar_borrar' %}" class="btn btn-dark btn-custom">Lista Animales</a>
             </div>
         </div>

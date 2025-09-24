@@ -24,14 +24,28 @@
         }
         .btn-custom {
             position: absolute;
-            top: 25rem;
-            left: 30rem;
+            top: 24rem;
+            left: 20rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
             background-color: #04014dff;
             color: white;
             border: none;
+            /* separación ya controlada con gap del formulario */
+        }
+
+        .btn-custom2 {
+            position: absolute;
+            top: 36rem;
+            left: 5rem;
+            font-size: 1.5rem;
+            padding: 1rem 1rem;
+            border-radius: 10px;
+            background-color: #04014dff;
+            color: white;
+            border: none;
+            text-decoration: none;
             /* separación ya controlada con gap del formulario */
         }
 {% endblock style %}
@@ -43,4 +57,6 @@
         {{form}}
         <input type="submit" value="Actualizar" class="btn-custom">
     </form>
+
+    <a href="{% url 'perfil' %}" class="btn-custom2">Volver</a>
 {% endblock body %}

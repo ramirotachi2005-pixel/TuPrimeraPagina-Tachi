@@ -6,7 +6,8 @@
 
 {% block style %}
     .animal-data {
-
+        position: absolute;
+        top: 5rem;
         font-size: 1.2rem;
         line-height: 2.2rem; /* Espacio entre renglones */
     }
@@ -29,11 +30,13 @@
             <li class="animal-data">
                 {{animal}}
                     <a href={% url "detalle" animal.id %} class="btn-custom" >Detalle</a>
+                {% if request.user.is_superuser %}
                     <a href={% url "actualizar" animal.id %} class="btn-custom" >Actualizar</a>
-                    <a href={% url "borrar" animal.id %} class="btn-custom" >Borrar</a> 
+                    <a href={% url "borrar" animal.id %} class="btn-custom" >Borrar</a>
+                {% endif %}
             </li>
         {% empty %}
-                <li>
+                <li class="animal-data">
                     <td colspan="5">No hay animales disponibles para adopción.</td>
                 </li>    
         {% endfor %}
