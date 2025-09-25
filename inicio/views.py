@@ -5,7 +5,7 @@ from inicio.models import Animal
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import user_passes_test
 
 def superusuario_required(user):
@@ -113,16 +113,31 @@ def detalle(request, animal_id):
     return render (request, 'inicio/detalle.html', {'animal':animal})
 
 
-class actualizar(LoginRequiredMixin,UpdateView):
+class actualizar(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Animal
     template_name = "inicio/actualizar.html"
     fields = "__all__"
     success_url = reverse_lazy('actualizar_borrar')
     
-class borrar(LoginRequiredMixin,DeleteView):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    # Qué hacer si no pasa la prueba (redireccionar a tu vista)
+    def handle_no_permission(self):
+        return redirect('acceso_denegado')
+    
+    
+class borrar(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Animal
     template_name = "inicio/borrar.html"
     success_url = reverse_lazy('actualizar_borrar')
+    
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    # Qué hacer si no pasa la prueba (redireccionar a tu vista)
+    def handle_no_permission(self):
+        return redirect('acceso_denegado')
 
 
 
