@@ -22,8 +22,8 @@
     }
     .btn-custom {
             position: absolute;
-            top: 35rem;
-            left: 12.5rem;
+            top: 50rem;
+            left: 30rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
@@ -35,8 +35,8 @@
         }
     .btn-custom2 {
             position: absolute;
-            top: 35rem;
-            left: 2.5rem;
+            top: 50rem;
+            left: 4rem;
             font-size: 1.5rem;
             padding: 1rem 1rem;
             border-radius: 10px;
@@ -49,13 +49,18 @@
     .imagen {
             position: absolute;
             top: 0rem;
-            left: 25rem;
+            left: 40rem;
             max-width: 250%;  /* Nunca se sale del contenedor */
             max-height: 150%;     /* Mantiene proporciones */
             display: block;   /* Evita espacios raros debajo de la imagen */
             object-fit: contain; /* La ajusta sin recortarla */
             border-radius: 12px; /* Opcional, esquinas redondeadas */
             box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Opcional, sombra suave */
+    }
+    .info {
+         max-width: 600px;       /* 👈 ancho máximo para que no se expanda infinito */
+         word-wrap: break-word;  /* 👈 corta las palabras largas */
+          overflow-wrap: break-word; /* 👈 asegura que se corte en navegadores modernos */
     }
 {% endblock style %}
 
@@ -69,7 +74,7 @@
             <p><strong>Sexo:</strong> {{animal.Sexo}}</p>
             <p><strong>Peso:</strong> {{animal.Peso}}</p>
             <p><strong>Edad aproximada:</strong> {{animal.Edad}}</p>
-            <p><strong>Información adicional:</strong> {{animal.Info}}</p>
+            <p class="info"><strong>Información adicional:</strong> {{animal.Info}}</p>
             {% if animal.imagen %}
             <img src={{animal.imagen.url}} alt="Imagen del animal" class='imagen'>
             {% else %}

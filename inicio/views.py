@@ -50,6 +50,9 @@ def adoptar(request):
     
     if request.method == "POST":
         formulario = formulario_adopcion(request.POST)
+        
+        
+        
         if formulario.is_valid():
             especie_nueva = formulario.cleaned_data.get('Especie')
             sexo_nueva = formulario.cleaned_data.get('Sexo')

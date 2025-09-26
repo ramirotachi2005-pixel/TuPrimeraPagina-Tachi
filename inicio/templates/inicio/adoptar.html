@@ -99,6 +99,9 @@
     <form action={% url "adoptar" %} method='POST' enctype='multipart/form-data' class="form">
 
         {% csrf_token %}
+
+        
+
         {{formulario}}
         <input type="submit" value="Adoptar" class="btn-custom">
 
